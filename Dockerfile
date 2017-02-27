@@ -17,8 +17,9 @@ RUN echo "## Downloading ${TS_VERSION} ##" && \
 
 EXPOSE 9000-9999/udp 10011/tcp 30033/tcp
 
-VOLUME /teamspeak/files /teamspeak/logs
+VOLUME /teamspeak/config /teamspeak/files /teamspeak/logs
 
 COPY docker-entrypoint.sh .
 ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["licensepath=config/", "createinifile=1", "inifile=config/ts3server.ini", "query_ip_whitelist=config/query_ip_whitelist.txt", "query_ip_blacklist=config/query_ip_blacklist.txt", "dbpluginparameter=config/ts3db.ini"]
 
