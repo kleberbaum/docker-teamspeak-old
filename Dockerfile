@@ -2,7 +2,7 @@ FROM frolvlad/alpine-glibc:alpine-3.5_glibc-2.25
 
 MAINTAINER Philipp Daniels <philipp.daniels@gmail.com>
 
-ARG TS_VERSION=3.0.12.4
+ARG TS_VERSION=3.0.13.6
 
 WORKDIR /teamspeak
 
