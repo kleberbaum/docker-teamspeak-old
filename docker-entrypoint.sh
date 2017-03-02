@@ -37,8 +37,9 @@ handleEnv() {
 }
 
 appendEnv() {
-  ENV_VAR="TS_$(echo ${1} | awk '{print toupper($0)}')"
-  ENV_VALUE=$(eval echo \$${ENV_VAR})
+  PARAMETER=${1}
+  ENV_NAME="TS_$(echo ${PARAMETER} | awk '{print toupper($0)}')"
+  ENV_VALUE=$(eval echo \$${ENV_NAME})
 
   if [ -n "${ENV_VALUE}" ]; then
     appendArg "${1}=${ENV_VALUE}"
