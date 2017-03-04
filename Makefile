@@ -26,9 +26,12 @@ check: run
 	make clear
 
 check_failed:
-	>&2 echo "Failed. Please check logs output"
+	>&2 echo "# FAILED. PLEASE CHECK DOCKER LOGS OUTPUT"
 	make logs clear
 
 logs:
 	docker logs teamspeak
+
+upgrade: build check
+	TS_VERSION=$(TS_VERSION) ./upgrade.sh
 
