@@ -21,9 +21,12 @@ clear:
 
 check: run
 	sleep 1
-	make logs 2>/dev/null | grep ServerLibPriv | grep TeamSpeak | grep $(TS_VERSION) > /dev/null || (make check_failed && false)
-	make logs 2>/dev/null | grep VirtualServer | grep listening | grep $(TS_VOICE_PORT) > /dev/null || (make check_failed && false)
-	make clear
+	echo "# CHECK TEAMSPEAK VERSION"
+	make -s logs 2>/dev/null | grep ServerLibPriv | grep TeamSpeak | grep $(TS_VERSION) > /dev/null || (make -s check_failed && false)
+	echo "# CHECK VOICE PORT"
+	make -s logs 2>/dev/null | grep VirtualServer | grep listening | grep $(TS_VOICE_PORT) > /dev/null || (make -s check_failed && false)
+	echo "# CLEANUP"
+	make -s clear
 
 check_failed:
 	>&2 echo "# FAILED. PLEASE CHECK DOCKER LOGS OUTPUT"
