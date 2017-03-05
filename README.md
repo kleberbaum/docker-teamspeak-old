@@ -26,3 +26,39 @@ $ docker run -d --name teamspeak \
   -p 10011:10011 \
   phaldan/teamspeak
 ```
+&nbsp;
+
+## Configuration
+
+### Environment variables
+
+This image supports environment variables for the TeamSpeak server.
+
+|Variable|Default|
+|-----------|---------|
+|TS_DEFAULT_VOICE_PORT|9987|
+|TS_VOICE_IP|0.0.0.0,0::0|
+|TS_CREATE_DEFAULT_VIRTUALSERVER|1|
+|TS_MACHINE_ID|&lt;empty&gt;|
+|TS_FILETRANSFER_PORT|30033|
+|TS_FILETRANSFER_IP|0.0.0.0,0::0|
+|TS_QUERY_PORT|10011|
+|TS_QUERY_IP|0.0.0.0,0::0|
+|TS_CLEAR_DATABASE|0|
+|TS_LOGPATH||logs/
+|TS_DBPLUGIN|ts3db_sqlite3|
+|TS_DBPLUGINPARAMETER|config/ts3db.ini|
+|TS_DBSQLPATH|sql/|
+|TS_DBSQLCREATEPATH|create_sqlite/|
+|TS_LICENSEPATH|config/|
+|TS_CREATEINIFILE|1|
+|TS_INIFILE|config/ts3server.ini|
+|TS_QUERY_IP_WHITELIST|config/query_ip_whitelist.txt|
+|TS_QUERY_IP_BLACKLIST|config/query_ip_blacklist.txt|
+|TS_QUERY_SKIPBRUTEFORCECHECK|0|
+|TS_DBCLIENTKEEPDAYS|90|
+|TS_DBLOGKEEPDAYS|90|
+|TS_LOGQUERYCOMMANDS|1|
+|TS_NO_PERMISSION_UPDATE|0|
+|TS_DBCONNECTIONS|10|
+|TS_LOGAPPEND|0|
