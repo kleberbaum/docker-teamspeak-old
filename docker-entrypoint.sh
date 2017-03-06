@@ -4,7 +4,7 @@ set -o pipefail
 
 main() {
   handleEnv
-  createSqliteSymlinks "ts3server.sqlitedb" "-shm" "-wal"
+  prepareSqliteSymlinks "ts3server.sqlitedb" "-shm" "-wal"
   LD_LIBRARY_PATH=lib/ exec ./ts3server "$@" "${ARGS}"
 }
 
@@ -51,14 +51,26 @@ appendArg() {
   ARGS="${ARGS} $1"
 }
 
-createSqliteSymlinks() {
+prepareSqliteSymlinks() {
   FILE_NAME=$1
   SHARED_MEMORY=$2
   WRITE_AHEAD_LOG=$3
   
-  ln -s "${TS_DBSQLITE}" "${FILE_NAME}"
-  ln -s "${TS_DBSQLITE}${SHARED_MEMORY}" "${FILE_NAME}${SHARED_MEMORY}"
-  ln -s "${TS_DBSQLITE}${WRITE_AHEAD_LOG}" "${FILE_NAME}${WRITE_AHEAD_LOG}"
+  createSymlink "${TS_DBSQLITE}" "${FILE_NAME}"
+  createSymlink "${TS_DBSQLITE}${SHARED_MEMORY}" "${FILE_NAME}${SHARED_MEMORY}"
+  createSymlink "${TS_DBSQLITE}${WRITE_AHEAD_LOG}" "${FILE_NAME}${WRITE_AHEAD_LOG}"
+}
+
+createSymlink() {
+  TARGET_PATH=$1
+  LINK_PATH=$2
+
+  if [ ! -L "${LINK_PATH}" ]; then
+    echo "Not found: ${LINK_PATH}"
+    ln -s "${TARGET_PATH}" "${LINK_PATH}"
+  else
+    echo "Exists: ${LINK_PATH}"
+  fi
 }
 
 ARGS=""
