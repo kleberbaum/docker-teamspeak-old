@@ -3,6 +3,7 @@ FROM frolvlad/alpine-glibc:alpine-3.5_glibc-2.25
 MAINTAINER Philipp Daniels <philipp.daniels@gmail.com>
 
 ARG TS_VERSION=3.0.13.6
+ENV TS_SQLITE=data/ts3server.sqlitedb
 
 WORKDIR /teamspeak
 
@@ -17,7 +18,7 @@ RUN echo "## Downloading ${TS_VERSION} ##" && \
 
 EXPOSE 9000-9999/udp 10011/tcp 30033/tcp
 
-VOLUME /teamspeak/config /teamspeak/files /teamspeak/logs
+VOLUME /teamspeak/config /teamspeak/files /teamspeak/logs /teamspeak/data
 
 COPY docker-entrypoint.sh .
 ENTRYPOINT ["./docker-entrypoint.sh"]

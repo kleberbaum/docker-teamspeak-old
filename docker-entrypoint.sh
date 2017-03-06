@@ -4,6 +4,7 @@ set -o pipefail
 
 main() {
   handleEnv
+  createSqliteSymlinks "ts3server.sqlitedb" "-shm" "-wal"
   LD_LIBRARY_PATH=lib/ exec ./ts3server "$@" "${ARGS}"
 }
 
@@ -48,6 +49,16 @@ appendEnv() {
 
 appendArg() {
   ARGS="${ARGS} $1"
+}
+
+createSqliteSymlinks() {
+  FILE_NAME=$1
+  SHARED_MEMORY=$2
+  WRITE_AHEAD_LOG=$3
+  
+  ln -s "${TS_SQLITE}" "${FILE_NAME}"
+  ln -s "${TS_SQLITE}${SHARED_MEMORY}" "${FILE_NAME}${SHARED_MEMORY}"
+  ln -s "${TS_SQLITE}${WRITE_AHEAD_LOG}" "${FILE_NAME}${WRITE_AHEAD_LOG}"
 }
 
 ARGS=""

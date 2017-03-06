@@ -12,6 +12,7 @@ run:
 	-v ${PWD}/config:/teamspeak/config \
 	-v ${PWD}/files:/teamspeak/files \
 	-v ${PWD}/logs:/teamspeak/logs \
+	-v ${PWD}/data:/teamspeak/data \
 	-e "TS_DEFAULT_VOICE_PORT=$(TS_VOICE_PORT)" \
 	phaldan/teamspeak:$(TS_VERSION)
 
