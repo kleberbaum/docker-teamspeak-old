@@ -30,6 +30,21 @@ $ docker run -d --name teamspeak \
 
 ## Configuration
 
+### Commandline Parameters
+
+This images uses docker entrypoint for starting the server. Cmd can be used to append paramters to the start command. Full list of parameters can be found at the official [quick-start guilde](http://media.teamspeak.com/ts3_literature/TeamSpeak%203%20Server%20Quick%20Start.txt). A few parameters are predefined to have a simpler docker setup:
+
+```
+licensepath=config/ createinifile=1 inifile=config/ts3server.ini query_ip_whitelist=config/query_ip_whitelist.txt query_ip_blacklist=config/query_ip_blacklist.txt dbpluginparameter=config/ts3db.ini
+```
+
+You can override the predefined parameter with your own. For example by enabling log append instead of creating a new log file on each startup:
+
+```
+$ docker run -d --name teamspeak -v ${PWD}/logs:/teamspeak/logs phaldan/teamspeak logappend=1
+```
+&nbsp;
+
 ### Environment variables
 
 This image supports environment variables for the TeamSpeak server.
