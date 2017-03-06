@@ -45,6 +45,7 @@ This image supports environment variables for the TeamSpeak server.
 |TS_DBPLUGIN|ts3db_sqlite3|
 |TS_DBPLUGINPARAMETER|config/ts3db.ini|
 |TS_DBSQLCREATEPATH|create_sqlite/|
+|TS_DBSQLITE|data/ts3server.sqlitedb|
 |TS_DBSQLPATH|sql/|
 |TS_DEFAULT_VOICE_PORT|9987|
 |TS_FILETRANSFER_IP|0.0.0.0,0::0|
