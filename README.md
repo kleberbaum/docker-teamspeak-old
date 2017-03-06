@@ -4,8 +4,8 @@
 
 Size optimised docker image based on [alpine](https://hub.docker.com/_/alpine/) image:
 
-* `3.0.13.6`, `3.0.13`, `3.0`, `3`, `latest` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/5790f11612e731264cd5fe57ccb8032a608b1027/Dockerfile))
-* `3.0.12.4`, `3.0.12` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/b31100b62944859ca56d71bdd4961eb8ce439259/Dockerfile))
+* `3.0.13.6`, `3.0.13`, `3.0`, `3`, `latest` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/cc4b6d4e48ed5b6a30448b017bee0f722b742725/Dockerfile))
+* `3.0.12.4`, `3.0.12` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/cc4b6d4e48ed5b6a30448b017bee0f722b742725/Dockerfile))
 &nbsp;
 
 ## What is TeamSpeak
