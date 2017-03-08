@@ -65,11 +65,8 @@ createSymlink() {
   TARGET_PATH=$1
   LINK_PATH=$2
 
-  if [ ! -L "${LINK_PATH}" ]; then
-    echo "Not found: ${LINK_PATH}"
+  if [ ! -f "${LINK_PATH}" ] && [ ! -L "${LINK_PATH}" ]; then
     ln -s "${TARGET_PATH}" "${LINK_PATH}"
-  else
-    echo "Exists: ${LINK_PATH}"
   fi
 }
 
