@@ -19,12 +19,59 @@ TeamSpeak is proprietary voice-over-Internet Protocol (VoIP) software for audio 
 
 ## How to use this image
 
+### Default
+
 ```
 $ docker run -d --name teamspeak \
   -p 9987:9987/udp \
   -p 30033:30033 \
   -p 10011:10011 \
   phaldan/teamspeak
+```
+&nbsp;
+
+### Persist data
+```
+docker run -d --name teamspeak \
+  -v ${PWD}/config:/teamspeak/config \
+  -v ${PWD}/files:/teamspeak/files \
+  -v ${PWD}/logs:/teamspeak/logs \
+  -v ${PWD}/data:/teamspeak/data \
+  -p 9987:9987/udp \
+  -p 30033:30033 \
+  -p 10011:10011 \
+  phaldan/teamspeak
+```
+&nbsp;
+
+### Docker-compose
+```
+version: '2'
+services:
+  teamspeak:
+    image: phaldan/teamspeak:3.0.13.6
+    environment:
+      - TS_DBPLUGIN=ts3db_mariadb
+      - TS_DBSQLCREATEPATH=create_mariadb/
+      - TS_DBHOST=mysql
+      - TS_DBDATABASE=teamspeak
+      - TS_DBPASSWORD=changeme
+    volumes:
+      - ./files:/teamspeak/files
+      - ./logs:/teamspeak/logs
+    links:
+      - mysql
+    ports:
+      - 9987:9987/udp
+      - 10011:10011
+      - 30033:30033
+  mysql:
+    image: mariadb:10
+    environment:
+      - MYSQL_DATABASE=teamspeak
+      - MYSQL_ROOT_PASSWORD=changeme
+    volumes:
+      - ./mysql:/var/lib/mysql
 ```
 &nbsp;
 
