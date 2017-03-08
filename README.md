@@ -45,6 +45,49 @@ $ docker run -d --name teamspeak -v ${PWD}/logs:/teamspeak/logs phaldan/teamspea
 ```
 &nbsp;
 
+### File ts3server.ini
+
+Instead of using commandline parameters a config file can be used. This file is located in `data/ts3server.ini`. An example of a config file can be found in the following snippet: 
+
+```
+machine_id=
+default_voice_port=1337
+voice_ip=0.0.0.0
+licensepath=config/
+filetransfer_port=30033
+filetransfer_ip=0.0.0.0
+query_port=10011
+query_ip=0.0.0.0
+query_ip_whitelist=config/query_ip_whitelist.txt
+query_ip_blacklist=config/query_ip_blacklist.txt
+dbplugin=ts3db_sqlite3
+dbpluginparameter=config/ts3db.ini
+dbsqlpath=sql/
+dbsqlcreatepath=create_sqlite/
+dbconnections=10
+logpath=logs
+logquerycommands=0
+dbclientkeepdays=30
+logappend=0
+query_skipbruteforcecheck=0
+```
+&nbsp;
+
+### File ts3db.ini
+
+If you want to use MariaDB/MySQL instead of the default SQLite you have to define a own config file with the connection settings. This config file is located in `data/ts3db.ini`. An example of a config file can be found in the following snippet:
+
+```
+[config]
+host=localhost
+port=3306
+username=teamspeak
+password=x5gUjs
+database=ts3db
+socket=
+```
+&nbsp;
+
 ### Environment variables
 
 This image supports environment variables for the TeamSpeak server.
