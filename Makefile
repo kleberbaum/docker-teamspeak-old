@@ -14,6 +14,7 @@ run:
 	-v ${PWD}/logs:/teamspeak/logs \
 	-v ${PWD}/data:/teamspeak/data \
 	-e "TS_DEFAULT_VOICE_PORT=$(TS_VOICE_PORT)" \
+	-e "TS_CLEAR_DATABASE=1" \
 	phaldan/teamspeak:$(TS_VERSION)
 
 clear:
