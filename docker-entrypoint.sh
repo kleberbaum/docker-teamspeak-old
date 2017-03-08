@@ -5,6 +5,7 @@ set -o pipefail
 main() {
   handleEnv
   prepareSqliteSymlinks "ts3server.sqlitedb" "-shm" "-wal"
+  prepareDbSettings
   LD_LIBRARY_PATH=lib/ exec ./ts3server "$@" "${ARGS}"
 }
 
@@ -70,6 +71,57 @@ createSymlink() {
   fi
 }
 
+prepareDbSettings() {
+  initiDbSettingsFile
+
+  if [ ! -z ${TS_DBHOST+x} ]; then addDbSetting "host" "${TS_DBHOST}"; fi
+  if [ ! -z ${TS_DBPORT+x} ]; then addDbSetting "port" "${TS_DBPORT}"; fi
+  if [ ! -z ${TS_DBUSERNAME+x} ]; then addDbSetting "username" "${TS_DBUSERNAME}"; fi
+  if [ ! -z ${TS_DBPASSWORD+x} ]; then addDbSetting "password" "${TS_DBPASSWORD}"; fi
+  if [ ! -z ${TS_DBDATABASE+x} ]; then addDbSetting "database" "${TS_DBDATABASE}"; fi
+  if [ ! -z ${TS_DBSOCKET+x} ]; then addDbSetting "socket" "${TS_DBSOCKET}"; fi
+}
+
+addDbSetting() {
+  KEY=$1
+  VALUE=$2
+  LINE="${KEY}=${VALUE}"
+
+  if [ $(grep -c '^\[config\]$' ${DB_CONFIG}) -eq "0" ]; then
+    insertFirstLine "${DB_CONFIG}" "[config]"
+  fi
+
+  if grep -q "${KEY}=" ${DB_CONFIG}; then
+    sed -i "s/${KEY}=.*/${LINE}/g" ${DB_CONFIG}
+  else
+    echo "${LINE}" >> ${DB_CONFIG}
+  fi
+}
+
+initiDbSettingsFile() {
+  if [ ! -f "${DB_CONFIG}" ]; then
+    touch ${DB_CONFIG}
+    echo '[config]' >> ${DB_CONFIG}
+    echo 'host=127.0.0.1' >> ${DB_CONFIG}
+    echo 'port=3306' >> ${DB_CONFIG}
+    echo 'username=root' >> ${DB_CONFIG}
+    echo 'password=' >> ${DB_CONFIG}
+    echo 'database=test' >> ${DB_CONFIG}
+    echo 'socket=' >> ${DB_CONFIG}
+  fi
+}
+
+insertFirstLine() {
+  TMP_FILE=$(mktemp)
+  FILE=$1
+  OUTPUT=$2
+
+  echo ${OUTPUT} > ${TMP_FILE}
+  cat ${FILE} >> ${TMP_FILE}
+  mv ${TMP_FILE} ${FILE}
+}
+
+DB_CONFIG="config/ts3db.ini"
 ARGS=""
 main "$@"
 
