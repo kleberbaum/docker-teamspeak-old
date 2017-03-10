@@ -92,7 +92,7 @@ addDbSetting() {
   fi
 
   if grep -q "${KEY}=" ${DB_CONFIG}; then
-    sed -i "s/${KEY}=.*/${LINE}/g" ${DB_CONFIG}
+    sed -i 's|'${KEY}'=.*|'${LINE}'|g' ${DB_CONFIG}
   else
     echo "${LINE}" >> ${DB_CONFIG}
   fi
