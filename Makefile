@@ -2,8 +2,11 @@
 TS_VERSION=$(or $(VERSION),3.0.13.6)
 TS_VOICE_PORT=$(or $(VOICE_PORT),1337) # Use non standard port to evaluate environment variables
 UPGRADE_SCRIPT=upgrade.sh
-DOCKER_CLI=$(shell which docker.io || which docker)
 DOCKER_IMAGE=phaldan/teamspeak
+DOCKER_CLI=$(shell which docker.io || which docker)
+DOCKER_LOGS=$(DOCKER_CLI) logs teamspeak 2>&1
+MAKE=make -s
+CHECK_FAILED=$(MAKE) logs clear && false
 
 all: build
 
@@ -27,15 +30,11 @@ clear:
 check: run
 	sleep 2
 	echo "# CHECK TEAMSPEAK VERSION"
-	make -s logs 2>/dev/null | grep ServerLibPriv | grep TeamSpeak | grep $(TS_VERSION) > /dev/null || (make -s check_failed && false)
+	$(DOCKER_LOGS) | grep ServerLibPriv | grep TeamSpeak | grep $(TS_VERSION) > /dev/null || ($(CHECK_FAILED))
 	echo "# CHECK VOICE PORT"
-	make -s logs 2>/dev/null | grep VirtualServer | grep listening | grep $(TS_VOICE_PORT) > /dev/null || (make -s check_failed && false)
+	$(DOCKER_LOGS) | grep VirtualServer | grep listening | grep $(TS_VOICE_PORT) > /dev/null || ($(CHECK_FAILED))
 	echo "# CLEANUP"
-	make -s clear
-
-check_failed:
-	>&2 echo "# FAILED. PLEASE CHECK DOCKER LOGS OUTPUT"
-	make logs clear
+	$(MAKE) clear
 
 logs:
 	$(DOCKER_CLI) logs teamspeak
