@@ -13,6 +13,10 @@ all: build
 build:
 	$(DOCKER_CLI) build --build-arg TS_VERSION=$(TS_VERSION) -t $(DOCKER_IMAGE):$(TS_VERSION) .
 
+update:
+	$(DOCKER_CLI) pull $(shell sed -n 's/^FROM //p' Dockerfile)
+	$(MAKE) build
+
 run:
 	$(DOCKER_CLI) run -d --name teamspeak \
 	-v ${PWD}/config:/teamspeak/config \
