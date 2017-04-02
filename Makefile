@@ -3,8 +3,9 @@ TS_VERSION=$(or $(VERSION),3.0.13.6)
 TS_VOICE_PORT=$(or $(VOICE_PORT),1337) # Use non standard port to evaluate environment variables
 UPGRADE_SCRIPT=upgrade.sh
 DOCKER_IMAGE=phaldan/teamspeak
+DOCKER_CONTAINER=teamspeak
 DOCKER_CLI=$(shell which docker.io || which docker)
-DOCKER_LOGS=$(DOCKER_CLI) logs teamspeak 2>&1
+DOCKER_LOGS=$(DOCKER_CLI) logs $(DOCKER_CONTAINER) 2>&1
 MAKE=make -s
 CHECK_FAILED=$(MAKE) logs clear && false
 
@@ -18,7 +19,7 @@ update:
 	$(MAKE) build
 
 run:
-	$(DOCKER_CLI) run -d --name teamspeak \
+	$(DOCKER_CLI) run -d --name $(DOCKER_CONTAINER) \
 	-v ${PWD}/config:/teamspeak/config \
 	-v ${PWD}/files:/teamspeak/files \
 	-v ${PWD}/logs:/teamspeak/logs \
@@ -28,8 +29,8 @@ run:
 	$(DOCKER_IMAGE):$(TS_VERSION)
 
 clear:
-	$(DOCKER_CLI) stop teamspeak
-	$(DOCKER_CLI) rm teamspeak
+	$(DOCKER_CLI) stop $(DOCKER_CONTAINER)
+	$(DOCKER_CLI) rm $(DOCKER_CONTAINER)
 
 check: run
 	sleep 2
@@ -41,7 +42,7 @@ check: run
 	$(MAKE) clear
 
 logs:
-	$(DOCKER_CLI) logs teamspeak
+	$(DOCKER_CLI) logs $(DOCKER_CONTAINER)
 
 upgrade: build check
 	curl -o $(UPGRADE_SCRIPT) https://raw.githubusercontent.com/phaldan/docker-tags-upgrade/master/$(UPGRADE_SCRIPT)
