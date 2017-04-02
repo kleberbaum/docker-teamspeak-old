@@ -1,4 +1,4 @@
-.PHONY : all build run clear check logs
+.PHONY : all build update run clear check logs upgrade
 TS_VERSION=$(or $(VERSION),3.0.13.6)
 TS_VOICE_PORT=$(or $(VOICE_PORT),1337) # Use non standard port to evaluate environment variables
 UPGRADE_SCRIPT=upgrade.sh
