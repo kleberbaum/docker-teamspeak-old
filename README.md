@@ -4,7 +4,7 @@
 
 Size optimised docker image based on [alpine](https://hub.docker.com/_/alpine/) image:
 
-* `3.0.13.6`, `3.0.13`, `3.0`, `3`, `latest` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/cc4b6d4e48ed5b6a30448b017bee0f722b742725/Dockerfile))
+* `3.0.13.8`, `3.0.13`, `3.0`, `3`, `latest` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/dd7c006851b4c7b31ad7ea3b2fc5f6c96b9756b3/Dockerfile))
 * `3.0.12.4`, `3.0.12` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/cc4b6d4e48ed5b6a30448b017bee0f722b742725/Dockerfile))
 &nbsp;
 
