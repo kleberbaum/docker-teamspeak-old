@@ -1,7 +1,7 @@
 version: '2'
 services:
   teamspeak:
-    image: phaldan/teamspeak:3.0.13.6
+    image: phaldan/teamspeak:3.0.13.8
     environment:
       - TS_DBPLUGIN=ts3db_mariadb
       - TS_DBSQLCREATEPATH=create_mariadb/
