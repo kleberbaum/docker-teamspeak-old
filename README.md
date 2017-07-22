@@ -170,6 +170,7 @@ This image supports environment variables for the TeamSpeak server.
 |&#x1F534; TS_LOGQUERYCOMMANDS|1|
 |&#x1F534; TS_MACHINE_ID|&lt;empty&gt;|
 |&#x1F534; TS_NO_PERMISSION_UPDATE|0|
+|&#x1F534; TS_QUERY_BUFFER_MB|20|
 |&#x1F534; TS_QUERY_IP|0.0.0.0,0::0|
 |&#x1F534; TS_QUERY_IP_BLACKLIST|config/query_ip_blacklist.txt|
 |&#x1F534; TS_QUERY_IP_WHITELIST|config/query_ip_whitelist.txt|

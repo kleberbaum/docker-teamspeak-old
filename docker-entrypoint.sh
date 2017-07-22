@@ -36,6 +36,7 @@ handleEnv() {
   appendEnv "no_permission_update"
   appendEnv "dbconnections"
   appendEnv "logappend"
+  appendEnv "query_buffer_mb"
 }
 
 appendEnv() {
