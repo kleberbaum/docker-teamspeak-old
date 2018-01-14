@@ -57,7 +57,7 @@ prepareSqliteSymlinks() {
   FILE_NAME=$1
   SHARED_MEMORY=$2
   WRITE_AHEAD_LOG=$3
-  
+
   createSymlink "${TS_DBSQLITE}" "${FILE_NAME}"
   createSymlink "${TS_DBSQLITE}${SHARED_MEMORY}" "${FILE_NAME}${SHARED_MEMORY}"
   createSymlink "${TS_DBSQLITE}${WRITE_AHEAD_LOG}" "${FILE_NAME}${WRITE_AHEAD_LOG}"
@@ -125,4 +125,3 @@ insertFirstLine() {
 DB_CONFIG="config/ts3db.ini"
 ARGS=""
 main "$@"
-
