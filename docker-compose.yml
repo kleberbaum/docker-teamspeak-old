@@ -1,7 +1,7 @@
 version: '2'
 services:
   teamspeak:
-    image: phaldan/teamspeak:3.0.13.8
+    image: kleberbaum/teamspeak:latest
     environment:
       - TS_DBPLUGIN=ts3db_mariadb
       - TS_DBSQLCREATEPATH=create_mariadb/
@@ -15,12 +15,12 @@ services:
       - mysql
     ports:
       - 9987:9987/udp
-      - 10011:10011
-      - 30033:30033
+      - 10011:10011/tcp
+      - 30033:30033/tcp
   mysql:
-    image: mariadb:10
+    image: mariadb:latest
     environment:
       - MYSQL_DATABASE=teamspeak
-      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_ROOT_PASSWORD=b3secure
     volumes:
       - ./mysql:/var/lib/mysql
