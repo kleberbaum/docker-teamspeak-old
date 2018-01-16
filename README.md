@@ -1,12 +1,20 @@
-# TeamSpeak server
+# TeamSpeak for Docker
 
-[![](https://images.microbadger.com/badges/version/phaldan/teamspeak.svg)](https://microbadger.com/images/phaldan/teamspeak) [![](https://images.microbadger.com/badges/image/phaldan/teamspeak.svg)](https://microbadger.com/images/phaldan/teamspeak) [![](https://img.shields.io/docker/stars/phaldan/teamspeak.svg)](https://hub.docker.com/r/phaldan/teamspeak/) [![](https://img.shields.io/docker/pulls/phaldan/teamspeak.svg)](https://hub.docker.com/r/phaldan/teamspeak/) [![](https://img.shields.io/docker/automated/phaldan/teamspeak.svg)](https://hub.docker.com/r/phaldan/teamspeak/)
+[![ImageOrigin](https://images.microbadger.com/badges/version/kleberbaum/teamspeak.svg)](https://microbadger.com/images/kleberbaum/teamspeak "Get your own version badge on microbadger.com")
+[![Docker Stars](https://img.shields.io/docker/stars/kleberbaum/teamspeak.svg)](https://hub.docker.com/r/kleberbaum/teamspeak/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/kleberbaum/teamspeak.svg)](https://hub.docker.com/r/kleberbaum/teamspeak/)
+[![ImageLayers](https://images.microbadger.com/badges/image/kleberbaum/teamspeak.svg)](https://microbadger.com/#/images/kleberbaum/teamspeak)
 
-Size optimised docker image based on [alpine](https://hub.docker.com/_/alpine/) image:
+Size optimised docker image based on [alpine](https://alpinelinux.org/).
 
-* `3.0.13.8`, `3.0.13`, `3.0`, `3`, `latest` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/dd7c006851b4c7b31ad7ea3b2fc5f6c96b9756b3/Dockerfile))
-* `3.0.12.4`, `3.0.12` ([Dockerfile](https://github.com/phaldan/docker-teamspeak/blob/cc4b6d4e48ed5b6a30448b017bee0f722b742725/Dockerfile))
-&nbsp;
+Extensively tested on [netcup 2.99€/a VPS](https://www.netcup.de/bestellen/produkt.php?produkt=1710).
+
+Build for [Ts3.Party](ts3server://ts3.party?port=9987).
+
+#### Upstream Links
+
+* Docker Registry @ [kleberbaum/teamspeak](https://hub.docker.com/r/kleberbaum/teamspeak/)
+* GitHub @ [kleberbaum/docker-teamspeaky](https://github.com/kleberbaum/docker-teamspeak)
 
 ## What is TeamSpeak
 
@@ -14,7 +22,7 @@ TeamSpeak is proprietary voice-over-Internet Protocol (VoIP) software for audio 
 
 > [wikipedia.org/wiki/TeamSpeak](https://en.wikipedia.org/wiki/TeamSpeak)
 
-![logo](https://raw.githubusercontent.com/phaldan/docker-teamspeak/54d169025092ad9f612a1647a5bc9e19fdbe56c6/logo.png)
+![logo](https://raw.githubusercontent.com/kleberbaum/docker-teamspeak/54d169025092ad9f612a1647a5bc9e19fdbe56c6/logo.png)
 &nbsp;
 
 ## How to use this image
@@ -26,7 +34,7 @@ $ docker run -d --name teamspeak \
   -p 9987:9987/udp \
   -p 30033:30033 \
   -p 10011:10011 \
-  phaldan/teamspeak
+  kleberbaum/teamspeak:latest
 ```
 &nbsp;
 
@@ -40,7 +48,7 @@ docker run -d --name teamspeak \
   -p 9987:9987/udp \
   -p 30033:30033 \
   -p 10011:10011 \
-  phaldan/teamspeak
+  kleberbaum/teamspeak:latest
 ```
 &nbsp;
 
@@ -49,7 +57,7 @@ docker run -d --name teamspeak \
 version: '2'
 services:
   teamspeak:
-    image: phaldan/teamspeak:3.0.13.6
+    image: kleberbaum/teamspeak:latest
     environment:
       - TS_DBPLUGIN=ts3db_mariadb
       - TS_DBSQLCREATEPATH=create_mariadb/
@@ -66,10 +74,10 @@ services:
       - 10011:10011
       - 30033:30033
   mysql:
-    image: mariadb:10
+    image: mariadb:latest
     environment:
       - MYSQL_DATABASE=teamspeak
-      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_ROOT_PASSWORD=b3secure
     volumes:
       - ./mysql:/var/lib/mysql
 ```
@@ -88,13 +96,13 @@ licensepath=config/ createinifile=1 inifile=config/ts3server.ini query_ip_whitel
 You can override the predefined parameter with your own. For example by enabling log append instead of creating a new log file on each startup:
 
 ```
-$ docker run -d --name teamspeak -v ${PWD}/logs:/teamspeak/logs phaldan/teamspeak logappend=1
+$ docker run -d --name teamspeak -v ${PWD}/logs:/teamspeak/logs kleberbaum/teamspeak:latest logappend=1
 ```
 &nbsp;
 
 ### File ts3server.ini
 
-Instead of using commandline parameters a config file can be used. This file is located in `data/ts3server.ini`. An example of a config file can be found in the following snippet: 
+Instead of using commandline parameters a config file can be used. This file is located in `data/ts3server.ini`. An example of a config file can be found in the following snippet:
 
 ```
 machine_id=
@@ -177,3 +185,11 @@ This image supports environment variables for the TeamSpeak server.
 |&#x1F534; TS_QUERY_PORT|10011|
 |&#x1F534; TS_QUERY_SKIPBRUTEFORCECHECK|0|
 |&#x1F534; TS_VOICE_IP|0.0.0.0,0::0|
+&nbsp;
+
+## Differences from kleberbaum/docker-teamspeak
+
+* Uses a clean alpine:latest as base
+* Uses a init (krallin/tini)
+* Build with a clean Dockerfile
+* Used by ts3.party ^^
