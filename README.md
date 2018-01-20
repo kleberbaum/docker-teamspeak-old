@@ -187,7 +187,7 @@ This image supports environment variables for the TeamSpeak server.
 |&#x1F534; TS_VOICE_IP|0.0.0.0,0::0|
 &nbsp;
 
-## Differences from kleberbaum/docker-teamspeak
+## Differences from phaldan/docker-teamspeak
 
 * Uses a clean alpine:latest as base
 * Uses a init (krallin/tini)
