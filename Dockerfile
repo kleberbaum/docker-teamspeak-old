@@ -6,7 +6,7 @@ LABEL description "TeamSpeak is a full-featured proprietary VoIP software"
 MAINTAINER Florian Kleber <kleberbaum@erebos.xyz>
 
 # change here to desired version
-ARG TS_VERSION=3.1.1
+ARG TS_VERSION=3.2
 
 ENV LANG=C.UTF-8
 ENV TS_DBSQLITE=data/ts3server.sqlitedb
