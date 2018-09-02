@@ -42,7 +42,7 @@ RUN echo "## Installing base ##" && \
     \
     &&\
     wget \
-        "https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub" \
+        "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" \
         -O "/etc/apk/keys/sgerrand.rsa.pub" \
     \
     &&\
